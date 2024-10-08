@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] Animator anim;
     float lastYPos;
     public float distancedTraveled;
+    [SerializeField]int collectedCoins;
 
     [SerializeField] UIController uiController;
     void Start()
@@ -98,7 +99,17 @@ public class Player : MonoBehaviour
     {
         if(collision.transform.CompareTag("Obstacle"))
         {
+            Debug.Log("hit");
             uiController.ShowGameOverScreen();
+        }
+    }
+
+    private void OnTriggerEnter2D (Collider2D collision)
+    {
+        if(collision.CompareTag("Collectable"))
+        {
+            collectedCoins++;
+            Destroy(collision.gameObject);
         }
     }
 }
