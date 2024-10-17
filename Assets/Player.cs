@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
 
     [SerializeField] bool airJump;
 
+    [SerializeField] bool shieldIsActive;
+    [SerializeField] GameObject shield;
+
 
     void Start()
     {
@@ -108,6 +111,20 @@ public class Player : MonoBehaviour
         if(collision.transform.CompareTag("Obstacle"))
         {
             Debug.Log("hit");
+            if (shieldIsActive == true)
+            {
+                shield.SetActive(false);
+                Destroy(collision.gameObject);
+            }
+            
+            else{
+                uiController.ShowGameOverScreen();
+            }
+            
+        }
+
+        if(collision.transform.CompareTag("DeathBox"))
+        {
             uiController.ShowGameOverScreen();
         }
     }
@@ -123,6 +140,13 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("AirJump"))
         {
             airJump = true;
+            Destroy(collision.gameObject);
+        }
+
+        if(collision.CompareTag("Shield"))
+        {
+            shieldIsActive = true;
+            shield.SetActive(true);
             Destroy(collision.gameObject);
         }
     }
