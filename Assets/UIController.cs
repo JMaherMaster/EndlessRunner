@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour
     [SerializeField] Text distancedTraveled;
     [SerializeField] GameObject gameOverScreen;
     [SerializeField] Player player;
+    [SerializeField] Text coinsCollected;
 
 
     public void ShowGameOverScreen()
@@ -17,6 +18,7 @@ public class UIController : MonoBehaviour
         //distancedTraveled.text = player.distancedTraveled.ToString();
         float distancedRounded = Mathf.Ceil(player.distancedTraveled);
         distancedTraveled.text = "" + distancedRounded;
+        coinsCollected.text = "" + player.collectedCoins;
     }
 
     public void GameRestart()

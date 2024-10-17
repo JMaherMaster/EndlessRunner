@@ -13,9 +13,13 @@ public class Player : MonoBehaviour
     [SerializeField] Animator anim;
     float lastYPos;
     public float distancedTraveled;
-    [SerializeField]int collectedCoins;
+    public int collectedCoins;
 
     [SerializeField] UIController uiController;
+
+    [SerializeField] bool airJump;
+
+
     void Start()
     {
         lastYPos = transform.position.y;
@@ -48,10 +52,14 @@ public class Player : MonoBehaviour
     }
     void CheckForInput()
     {
-        if (isGrounded == true)
+        if (isGrounded == true || airJump == true)
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
+                if(airJump == true && isGrounded == false)
+                {
+                    airJump = false;
+                }
                 jump = true;
                 anim.SetTrigger("Jump");
             }
@@ -109,6 +117,12 @@ public class Player : MonoBehaviour
         if(collision.CompareTag("Collectable"))
         {
             collectedCoins++;
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.CompareTag("AirJump"))
+        {
+            airJump = true;
             Destroy(collision.gameObject);
         }
     }
