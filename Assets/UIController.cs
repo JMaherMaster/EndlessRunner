@@ -10,11 +10,15 @@ public class UIController : MonoBehaviour
     [SerializeField] GameObject gameOverScreen;
     [SerializeField] Player player;
     [SerializeField] Text coinsCollected;
+    [SerializeField] GameObject gameMusic;
+    [SerializeField] GameObject sky;
 
 
     public void ShowGameOverScreen()
     {
         gameOverScreen.SetActive(true);
+        gameMusic.SetActive(false);
+        sky.SetActive(false);
         //distancedTraveled.text = player.distancedTraveled.ToString();
         float distancedRounded = Mathf.Ceil(player.distancedTraveled);
         distancedTraveled.text = "" + distancedRounded;
